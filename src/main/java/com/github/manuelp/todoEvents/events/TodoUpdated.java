@@ -5,14 +5,13 @@ import com.github.manuelp.todoEvents.Validations;
 import java.util.UUID;
 
 import static fj.P.p;
-import static fj.data.List.list;
 
 public class TodoUpdated {
   private final UUID id;
   private final String title, notes;
 
   private TodoUpdated(UUID id, String title, String notes) {
-    Validations.mustNotBeNull(list(p("ID", id), p("Title", title), p("Notes", notes)));
+    Validations.mustNotBeNull(p("ID", id), p("Title", title), p("Notes", notes));
     this.id = id;
     this.title = title;
     this.notes = notes;

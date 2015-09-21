@@ -4,6 +4,7 @@ import fj.Function;
 import fj.P2;
 import fj.Semigroup;
 import fj.Unit;
+import fj.data.Array;
 import fj.data.List;
 import fj.data.NonEmptyList;
 import fj.data.Validation;
@@ -29,12 +30,19 @@ public class Validations {
 
   public static Validation<NonEmptyList<String>, Unit> notNull(List<P2<String, ?>> values) {
     return Validation.sequence(Semigroup.nonEmptyListSemigroup(), values.map(Validations::notNull).map(Validation::nel))
-                     .map(
-                         Function.constant(unit()));
+                     .map(Function.constant(unit()));
   }
 
   public static void mustNotBeNull(List<P2<String, ?>> values) {
     Validation<NonEmptyList<String>, Unit> v = notNull(values);
+    if (v.isFail()) {
+      String message = v.fail().toList().intersperse(" ").foldLeft1((a, b) -> a + b);
+      throw new IllegalArgumentException(message);
+    }
+  }
+
+  public static void mustNotBeNull(P2<String, ?>... values) {
+    Validation<NonEmptyList<String>, Unit> v = notNull(Array.array(values).toList());
     if (v.isFail()) {
       String message = v.fail().toList().intersperse(" ").foldLeft1((a, b) -> a + b);
       throw new IllegalArgumentException(message);

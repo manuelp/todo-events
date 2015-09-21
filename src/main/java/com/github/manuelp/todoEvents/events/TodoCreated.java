@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static fj.P.p;
-import static fj.data.List.list;
 
 public class TodoCreated {
   private final UUID id;
@@ -14,7 +13,7 @@ public class TodoCreated {
   private final LocalDateTime created;
 
   private TodoCreated(UUID id, String title, String notes, LocalDateTime created) {
-    Validations.mustNotBeNull(list(p("ID", id), p("Title", title), p("Notes", notes), p("Created", created)));
+    Validations.mustNotBeNull(p("ID", id), p("Title", title), p("Notes", notes), p("Created", created));
     this.id = id;
     this.title = title;
     this.notes = notes;

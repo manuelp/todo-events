@@ -13,7 +13,7 @@ public class TodoCompleted {
   private final LocalDateTime completed;
 
   private TodoCompleted(UUID id, LocalDateTime completed) {
-    Validations.mustNotBeNull(list(p("ID", id), p("Completed", completed)));
+    Validations.mustNotBeNull(p("ID", id), p("Completed", completed));
     this.id = id;
     this.completed = completed;
   }
