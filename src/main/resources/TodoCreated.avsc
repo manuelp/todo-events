@@ -1,0 +1,11 @@
+{
+  "namespace": "todoEvents",
+  "type": "record",
+  "name": "TodoCreated",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "title", "type": "string"},
+    {"name": "notes", "type": "string"},
+    {"name": "created", "type": "string"}
+  ]
+}
