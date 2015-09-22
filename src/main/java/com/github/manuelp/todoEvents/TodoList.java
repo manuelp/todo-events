@@ -7,12 +7,14 @@ import fj.data.Either;
 import me.manuelp.jevsto.EventStore;
 import me.manuelp.jevsto.dataTypes.Event;
 import me.manuelp.jevsto.dataTypes.EventData;
-import me.manuelp.jevsto.dataTypes.EventType;
 import org.threeten.bp.LocalDateTime;
 
 import java.util.UUID;
 
 import static com.github.manuelp.todoEvents.events.TodoCreated.todoCreated;
+import static fj.data.Either.right;
+import static me.manuelp.jevsto.dataTypes.Event.event;
+import static me.manuelp.jevsto.dataTypes.EventType.eventType;
 
 public class TodoList implements BasicTodoList {
   private EventStore eventStore;
@@ -26,9 +28,9 @@ public class TodoList implements BasicTodoList {
   public Either<Throwable, UUID> addTodo(String title, String note) {
     TodoCreated event     = todoCreated(UUID.randomUUID(), title, note, java.time.LocalDateTime.now());
     EventData   eventData = new TodoCreatedWriter("TodoCreated.avsc").f(event);
-    Event       test      = Event.event(LocalDateTime.now(), EventType.eventType("test"), eventData);
+    Event       test      = event(LocalDateTime.now(), eventType("todoCreated"), eventData);
     eventStore.append(test);
-    return Either.right(event.getId());
+    return right(event.getId());
   }
 
 

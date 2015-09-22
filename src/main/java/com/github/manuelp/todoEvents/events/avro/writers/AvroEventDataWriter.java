@@ -16,7 +16,7 @@ import java.io.IOException;
 import static me.manuelp.jevsto.dataTypes.EventData.eventData;
 
 public abstract class AvroEventDataWriter<T> implements EventDataWriter<T> {
-  private Schema schema;
+  private final Schema schema;
 
   public AvroEventDataWriter(String schema) {
     try {
