@@ -27,7 +27,8 @@ public class Main {
   }
 
   private static Action1<Event> printEvent() {
-    return e -> System.out.println(String.format("Serialized -> %s", e.toString()));
+    return e -> System.out.println(String.format("Serialized -> %s (data size: %d bytes)", e.toString(),
+                                                 e.getData().getData().length));
   }
 
   private static Action1<Event> printDeserializedEvent() {

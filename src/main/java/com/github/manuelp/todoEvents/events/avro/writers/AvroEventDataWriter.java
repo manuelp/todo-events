@@ -1,13 +1,12 @@
 package com.github.manuelp.todoEvents.events.avro.writers;
 
+import com.github.manuelp.todoEvents.events.avro.AvroSchema;
 import me.manuelp.jevsto.EventDataWriter;
 import me.manuelp.jevsto.dataTypes.EventData;
 import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.io.BinaryEncoder;
-import org.apache.avro.io.DatumWriter;
-import org.apache.avro.io.EncoderFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,12 +18,13 @@ public abstract class AvroEventDataWriter<T> implements EventDataWriter<T> {
   private final Schema schema;
 
   public AvroEventDataWriter(String schema) {
-    try {
-      String schemaFile = this.getClass().getClassLoader().getResource(schema).getFile();
-      this.schema = new Schema.Parser().parse(new File(schemaFile));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    String schemaFilePath = this.getClass().getClassLoader().getResource(schema).getFile();
+    File   schemaFile     = new File(schemaFilePath);
+    this.schema = AvroSchema.readSchema(schemaFile);
+  }
+
+  public AvroEventDataWriter(File schemaFile) {
+    this.schema = AvroSchema.readSchema(schemaFile);
   }
 
   public Schema schema() {
@@ -34,12 +34,11 @@ public abstract class AvroEventDataWriter<T> implements EventDataWriter<T> {
   @Override
   public EventData f(T event) {
     EventData eventData;
-    try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-      GenericRecord r = createRecord(event);
-      DatumWriter<GenericRecord> writer = new GenericDatumWriter<>(schema);
-      BinaryEncoder binaryEncoder = EncoderFactory.get().binaryEncoder(out, null);
-      writer.write(r, binaryEncoder);
-      binaryEncoder.flush();
+    try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+         DataFileWriter<GenericRecord> dataWriter = new DataFileWriter<>(new GenericDatumWriter<>(schema))) {
+      dataWriter.create(schema, out);
+      dataWriter.append(createRecord(event));
+      dataWriter.flush();
       eventData = eventData(out.toByteArray());
     } catch (IOException e) {
       throw new RuntimeException(e);
