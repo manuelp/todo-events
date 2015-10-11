@@ -1,8 +1,24 @@
 group 'com.github.manuelp'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
+    }
+}
+
+apply plugin: 'org.flywaydb.flyway'
 apply plugin: 'java'
 apply plugin: 'maven'
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/eventstore'
+    user = 'eventstore'
+    password = 'eventstore'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
