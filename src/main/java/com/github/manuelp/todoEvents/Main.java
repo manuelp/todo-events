@@ -1,6 +1,6 @@
 package com.github.manuelp.todoEvents;
 
-import com.github.manuelp.todoEvents.postgresql.RelationalEventStore;
+import com.github.manuelp.todoEvents.events.postgresql.RelationalEventStore;
 import com.github.manuelp.todoEvents.web.Server;
 import me.manuelp.jevsto.EventStore;
 

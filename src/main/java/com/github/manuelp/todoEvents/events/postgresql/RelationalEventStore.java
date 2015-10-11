@@ -1,4 +1,4 @@
-package com.github.manuelp.todoEvents.postgresql;
+package com.github.manuelp.todoEvents.events.postgresql;
 
 import fj.data.List;
 import fj.data.Option;
