@@ -1,4 +1,4 @@
-package com.github.manuelp.todoEvents;
+package com.github.manuelp.todoEvents.commands;
 
 import java.util.UUID;
 

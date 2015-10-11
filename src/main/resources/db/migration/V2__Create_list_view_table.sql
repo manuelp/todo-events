@@ -1,0 +1,9 @@
+CREATE TABLE list_view (
+  id UUID NOT NULL PRIMARY KEY,
+  title TEXT NOT NULL,
+  notes TEXT NOT NULL,
+  complete BOOLEAN DEFAULT FALSE,
+  created TIMESTAMP NOT NULL,
+  updated TIMESTAMP,
+  completed TIMESTAMP
+);

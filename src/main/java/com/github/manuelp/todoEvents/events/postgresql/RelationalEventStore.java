@@ -29,8 +29,8 @@ public class RelationalEventStore implements EventStore {
   private final DBI                   dbi;
   private final PublishSubject<Event> stream;
 
-  public RelationalEventStore(String connectionString) {
-    dbi = new DBI(connectionString);
+  public RelationalEventStore(DBI dbi) {
+    this.dbi = dbi;
     stream = PublishSubject.create();
   }
 

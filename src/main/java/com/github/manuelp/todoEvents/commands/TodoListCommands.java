@@ -1,5 +1,6 @@
-package com.github.manuelp.todoEvents;
+package com.github.manuelp.todoEvents.commands;
 
+import com.github.manuelp.todoEvents.Validations;
 import com.github.manuelp.todoEvents.events.TodoCompleted;
 import com.github.manuelp.todoEvents.events.TodoCreated;
 import com.github.manuelp.todoEvents.events.TodoUpdated;
