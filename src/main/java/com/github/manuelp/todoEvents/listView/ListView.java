@@ -22,8 +22,8 @@ public class ListView {
   }
 
   public List<TodoItem> notCompleted() {
-    return iterableList(dbi.withHandle(h -> h.createQuery(SELECT_ITEM + " WHERE complete IS FALSE").map(readItem())
-                                             .list()));
+    return iterableList(dbi.withHandle(h -> h.createQuery(SELECT_ITEM + " WHERE complete IS FALSE ORDER BY created")
+                                             .map(readItem()).list()));
   }
 
   private ResultSetMapper<TodoItem> readItem() {
@@ -37,5 +37,10 @@ public class ListView {
       Option<LocalDateTime> completed = fromNull(r.getTimestamp("completed")).map(Timestamp::toLocalDateTime);
       return todoItem(id, title, notes, complete, created, updated, completed);
     };
+  }
+
+  public List<TodoItem> completed() {
+    return iterableList(dbi.withHandle(h -> h.createQuery(SELECT_ITEM + " WHERE complete IS TRUE ORDER BY created").map(
+        readItem()).list()));
   }
 }

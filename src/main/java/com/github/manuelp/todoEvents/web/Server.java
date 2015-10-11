@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializer;
-import fj.data.List;
 
 import java.time.format.DateTimeFormatter;
 
@@ -40,8 +39,11 @@ public class Server {
   public void startServer() {
     get("/todo", (req, res) -> {
       res.type("application/json");
-      List<TodoItem> items = listView.notCompleted();
-      return gson.toJson(items.toJavaList());
+      return gson.toJson(listView.notCompleted().toJavaList());
+    });
+    get("/todo/completed", (req, res) -> {
+      res.type("application/json");
+      return gson.toJson(listView.completed().toJavaList());
     });
   }
 }
