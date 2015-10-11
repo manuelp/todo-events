@@ -4,6 +4,7 @@ import com.github.manuelp.todoEvents.commands.TodoListCommands;
 import com.github.manuelp.todoEvents.events.postgresql.RelationalEventStore;
 import com.github.manuelp.todoEvents.listView.CompleteTodo;
 import com.github.manuelp.todoEvents.listView.CreateTodo;
+import com.github.manuelp.todoEvents.listView.ListView;
 import com.github.manuelp.todoEvents.listView.UpdateTodo;
 import com.github.manuelp.todoEvents.web.Server;
 import me.manuelp.jevsto.EventStore;
@@ -22,10 +23,12 @@ public class Main {
     wireObservers(eventStore, dbi);
 
     TodoListCommands todoList = new TodoListCommands(eventStore);
+    //    todoList.addTodo("Order pizza", "Today is pizza day!");
     //    todoList.updateTodo(UUID.fromString("231a34f2-b9e6-47fd-8fff-1a43e2ed959c"), "New title", "Enjoy your editing!");
     //    todoList.markCompleted(UUID.fromString("231a34f2-b9e6-47fd-8fff-1a43e2ed959c"));
 
-    new Server().startServer(eventStore);
+    ListView listView = new ListView(dbi);
+    new Server(listView).startServer();
   }
 
   private static void wireObservers(EventStore eventStore, DBI dbi) {
