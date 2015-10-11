@@ -22,9 +22,4 @@ public class TodoCreatedReader extends AvroEventDataReader<TodoCreated> {
     LocalDateTime created = LocalDateTime.parse(readString(record, "created"));
     return todoCreated(id, title, notes, created);
   }
-
-  private String readString(GenericRecord record, String name) {
-    Utf8 lol = (Utf8) record.get(name);
-    return lol.toString();
-  }
 }

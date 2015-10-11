@@ -1,0 +1,9 @@
+{
+  "namespace": "todoEvents",
+  "type": "record",
+  "name": "TodoCompleted",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "completed", "type": "string"}
+  ]
+}

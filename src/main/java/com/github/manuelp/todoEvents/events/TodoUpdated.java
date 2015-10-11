@@ -17,7 +17,7 @@ public class TodoUpdated {
     this.notes = notes;
   }
 
-  public static TodoUpdated todoCreated(UUID id, String title, String notes) {
+  public static TodoUpdated todoUpdated(UUID id, String title, String notes) {
     return new TodoUpdated(id, title, notes);
   }
 

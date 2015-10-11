@@ -6,10 +6,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static fj.P.p;
-import static fj.data.List.list;
 
 public class TodoCompleted {
-  private final UUID id;
+  private final UUID          id;
   private final LocalDateTime completed;
 
   private TodoCompleted(UUID id, LocalDateTime completed) {

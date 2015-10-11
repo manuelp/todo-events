@@ -8,6 +8,7 @@ import org.apache.avro.file.DataFileStream;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.util.Utf8;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -40,4 +41,9 @@ public abstract class AvroEventDataReader<T> implements EventDataReader<T> {
   }
 
   public abstract T readRecord(GenericRecord record);
+
+  protected String readString(GenericRecord record, String name) {
+    Utf8 s = (Utf8) record.get(name);
+    return s.toString();
+  }
 }

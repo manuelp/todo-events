@@ -20,7 +20,7 @@ public class Server {
   }
 
   public void startServer(EventStore eventStore) {
-    get("/created", (req, res) -> {
+    get("/todo", (req, res) -> {
       res.type("application/json");
       List<Event> events = eventStore.getAll().filter(e -> Event.isOfType(TODO_CREATED.getType()).call(e));
       return gson.toJson(events.map(TODO_CREATED.reader()).toJavaList());

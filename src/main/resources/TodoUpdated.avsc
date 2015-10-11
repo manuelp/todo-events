@@ -1,0 +1,10 @@
+{
+  "namespace": "todoEvents",
+  "type": "record",
+  "name": "TodoUpdated",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "title", "type": "string"},
+    {"name": "notes", "type": "string"}
+  ]
+}

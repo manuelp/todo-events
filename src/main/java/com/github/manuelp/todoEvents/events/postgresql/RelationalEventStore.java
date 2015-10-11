@@ -40,7 +40,6 @@ public class RelationalEventStore implements EventStore {
       h.execute("INSERT INTO events (id,created,type,data) VALUES (?,?,?,?)", event.getId(),
                 DateTimeUtils.toSqlTimestamp(event.getTimestamp()), event.getType().getType(),
                 event.getData().getData());
-      System.out.println("Saved event " + event.getId().toString());
       return null;
     });
     stream.onNext(event);
